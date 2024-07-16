@@ -4,10 +4,11 @@ import useAxios from "../../hooks/useAxios";
 import bcrypt from "bcryptjs"
 import toast, { Toaster } from "react-hot-toast";
 
+
 const SignIn = () => {
 
     const axiosPublic = useAxios()
-   
+  
     const navigate = useNavigate()
    
 
@@ -34,7 +35,9 @@ const SignIn = () => {
                            console.log(result.data)
                            const token = result.data
                            localStorage.setItem('access_token', token)
+                           localStorage.setItem("userEmail",dat?.email)
                            toast.success("You have successfully sign in")
+                           
                            navigate("/dashboard")
                         })
                        

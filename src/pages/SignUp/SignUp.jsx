@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import bcrypt from "bcryptjs"
 import useAxios from "../../hooks/useAxios";
 import toast, { Toaster } from "react-hot-toast";
@@ -10,7 +10,7 @@ const SignUp = () => {
     const [role,setRole] = useState()
     const [error,setError] = useState("")
     const axiosPublic = useAxios()
-    
+    const navigate = useNavigate()
 
     const {mutateAsync} = useMutation({
         mutationKey: ['user'],
@@ -20,6 +20,7 @@ const SignUp = () => {
         },
         onSuccess: ()=> {
             toast.success("You have successfully register please wait for admin approval")
+            navigate("/signIn")
         }
     })
    
@@ -49,18 +50,7 @@ const SignUp = () => {
        
       mutateAsync(user)
       form.reset()
-      try{
-         axiosPublic.post("/jwt",{email: email})
-         .then(result => {
-            console.log(result.data)
-            const token = result.data
-            localStorage.setItem('access_token', token)
-         })
-
-      }
-      catch (err){
-        console.log(err)
-      }
+      
     }
     return (
         <div className="flex  min-h-screen  items-center justify-center">

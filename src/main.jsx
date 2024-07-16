@@ -15,6 +15,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import Dashboard from './pages/Dashboard/Dashboard';
+import ContextProvider from './provider/ContextProvider';
 
 const queryClient = new QueryClient()
 
@@ -41,8 +42,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-   <QueryClientProvider client={queryClient}>
+    <ContextProvider>
+    <QueryClientProvider client={queryClient}>
     <RouterProvider router={router} />
    </QueryClientProvider>
+    </ContextProvider>
   </React.StrictMode>,
 )
